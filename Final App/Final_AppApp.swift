@@ -8,10 +8,13 @@
 import SwiftUI
 
 @main
-struct Final_AppApp: App {
+struct MyApp: App {
+    
+    @StateObject var termOrDef = TermOrDef()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(termOrDef)
         }
     }
 }

@@ -8,17 +8,65 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var termOrDef: TermOrDef
+    @State var arrayTest:[RealTerms] = [RealTerms(term: "Term", definition: "Definition")]
+    @State var otherArray: [String] = ["Test Term", "Test Def"]
+    @State var inputTerm = "Enter A Term"
+    @State var inputDef = "Enter A Definition"
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+           
+            List(arrayTest, id: \.self) {term in
+                Term(term: term)
+                    .frame(height: 200)
+            }
+            
+            
+            
+            
+            Button("Switch Term To Definition Or Vise versa"){
+                termOrDef.tOrD.toggle()
+            }
         }
-        .padding()
+        
     }
 }
 
-#Preview {
-    ContentView()
+
+
+
+
+struct RealTerms: Hashable{
+    var term:String
+    var definition:String
 }
+struct Term: View{
+    @EnvironmentObject var termOrDef: TermOrDef
+    var term:RealTerms
+    var body: some View{
+        if termOrDef.tOrD == true{
+            Text(term.term)
+        } else if termOrDef.tOrD == false{
+            Text(term.definition)
+        }
+    }
+}
+
+class TermOrDef: ObservableObject{
+    @Published var tOrD: Bool = true
+}
+
+
+
+
+
+
+
+
+#Preview {
+    @StateObject var termOrDef = TermOrDef()
+    ContentView()
+        .environmentObject(termOrDef)
+}
+//CShea16
