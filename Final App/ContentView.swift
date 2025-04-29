@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var termOrDef: TermOrDef
-    @State var arrayTest:[RealTerms] = [RealTerms(term: "Term", definition: "Definition")]
+    @State var arrayTest:[RealTerms] = [RealTerms(term: "Term", definition: "Definition"), RealTerms(term: "Term2", definition: "Definition2")]
     @State var otherArray: [String] = ["Test Term", "Test Def"]
     @State var inputTerm = "Enter A Term"
     @State var inputDef = "Enter A Definition"
@@ -18,8 +18,10 @@ struct ContentView: View {
         VStack {
            
             List(arrayTest, id: \.self) {term in
-                Term(term: term)
-                    .frame(height: 200)
+                Section {
+                    Term(term: term)
+                        .frame(height: 200)
+                }
             }
             
             
