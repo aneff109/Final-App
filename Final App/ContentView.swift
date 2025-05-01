@@ -9,27 +9,56 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var termOrDef: TermOrDef
-    @State var arrayTest:[RealTerms] = [RealTerms(term: "Term", definition: "Definition"), RealTerms(term: "Term2", definition: "Definition2")]
+    @State var arrayTest:[RealTerms] = []
     @State var otherArray: [String] = ["Test Term", "Test Def"]
-    @State var inputTerm = "Enter A Term"
-    @State var inputDef = "Enter A Definition"
-    
+   
+    @State var newTerm: String = ""
+    @State var newDefinition: String = ""
     var body: some View {
         VStack {
-           
-            List(arrayTest, id: \.self) {term in
-                Section {
-                    Term(term: term)
-                        .frame(height: 200)
+            Section{
+                List(arrayTest, id: \.self) {term in
+                    Section {
+                        Term(term: term)
+                            .frame(height: 200)
+                    }
+                }
+                Button("Switch Term To Definition Or Vise versa"){
+                    termOrDef.tOrD.toggle()
                 }
             }
+        }
+        ZStack {
+            RoundedRectangle(cornerRadius: 10.0)
+                .frame(width: 370, height: 45)
             
             
             
             
-            Button("Switch Term To Definition Or Vise versa"){
-                termOrDef.tOrD.toggle()
-            }
+            TextField("Enter A New Term", text: $newTerm)
+                .multilineTextAlignment(.center)
+                .autocapitalization(.none)
+                .autocorrectionDisabled(true)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 350,height: 35)
+            
+        }
+        ZStack {
+            RoundedRectangle(cornerRadius: 10.0)
+                .frame(width: 370, height: 45)
+            
+            
+            
+            
+            TextField("Enter A New Definition", text: $newDefinition)
+                .multilineTextAlignment(.center)
+                .autocapitalization(.none)
+                .autocorrectionDisabled(true)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 350,height: 35)
+        }
+        Button("Add Term/Definition"){
+            arrayTest.append(RealTerms(term: "\(newTerm)", definition: "\(newDefinition)"))
         }
         
     }
@@ -58,7 +87,6 @@ struct Term: View{
 class TermOrDef: ObservableObject{
     @Published var tOrD: Bool = true
 }
-
 
 
 
