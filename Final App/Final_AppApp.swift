@@ -11,10 +11,12 @@ import SwiftUI
 struct MyApp: App {
     
     @StateObject var termOrDef = TermOrDef()
+    @StateObject var removeFlashCard = RemoveFlashCard()
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(termOrDef)
+                .environmentObject(removeFlashCard)
         }
     }
 }

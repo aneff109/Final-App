@@ -11,9 +11,9 @@ struct ContentView: View {
     @EnvironmentObject var termOrDef: TermOrDef
     @State var arrayTest:[RealTerms] = []
     @State var otherArray: [String] = ["Test Term", "Test Def"]
-   
     @State var newTerm: String = ""
     @State var newDefinition: String = ""
+    @EnvironmentObject var removeFlashCard: RemoveFlashCard
     var body: some View {
         VStack {
             Section{
@@ -28,6 +28,11 @@ struct ContentView: View {
                 }
             }
         }
+        .onAppear(perform: {
+            DispatchQueue.main.asyncAfter(deadline: .now()){
+                removeFlashCard.maxFlashCard = arrayTest.count
+            }
+        })
         ZStack {
             RoundedRectangle(cornerRadius: 10.0)
                 .frame(width: 370, height: 45)
@@ -88,7 +93,10 @@ class TermOrDef: ObservableObject{
     @Published var tOrD: Bool = true
 }
 
-
+class RemoveFlashCard: ObservableObject{
+    @Published var flashCardToRemove: Int = 0
+    @Published var maxFlashCard: Int = 0
+}
 
 
 
@@ -96,7 +104,30 @@ class TermOrDef: ObservableObject{
 
 #Preview {
     @StateObject var termOrDef = TermOrDef()
+    @StateObject var removeFlashCard = RemoveFlashCard()
     ContentView()
         .environmentObject(termOrDef)
+        .environmentObject(removeFlashCard)
+}
+
+
+struct EditArray: View{
+    @State var removalNum: [Int] = []
+    @EnvironmentObject var removeFlashCard: RemoveFlashCard
+    var body: some View{
+        Text("")
+            .onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now()){
+                    for Int in 0...removeFlashCard.maxFlashCard{
+                        var num = 0
+                        removalNum.append(num)
+                        num += 1
+                    }
+                }
+            })
+        Picker("Pick A Flashcard To Delete!", selection: removalNum){
+            
+        }
+    }
 }
 //CShea16
