@@ -14,6 +14,8 @@ struct ContentView: View {
    
     @State var newTerm: String = ""
     @State var newDefinition: String = ""
+    @State var termToRemove: String = ""
+    @State var definitionToRemove: String = ""
     var body: some View {
         VStack {
             Section{
@@ -60,7 +62,9 @@ struct ContentView: View {
         Button("Add Term/Definition"){
             arrayTest.append(RealTerms(term: "\(newTerm)", definition: "\(newDefinition)"))
         }
-        
+        Button("Remove Term/Definition"){
+            arrayTest.append(RealTerms(term: "\(termToRemove)", definition: "\(definitionToRemove)"))
+        }
     }
 }
 
@@ -87,8 +91,6 @@ struct Term: View{
 class TermOrDef: ObservableObject{
     @Published var tOrD: Bool = true
 }
-
-
 
 
 
