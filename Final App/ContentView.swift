@@ -11,11 +11,13 @@ struct ContentView: View {
     @EnvironmentObject var termOrDef: TermOrDef
     @State var arrayTest:[RealTerms] = []
     @State var otherArray: [String] = ["Test Term", "Test Def"]
-   
     @State var newTerm: String = ""
     @State var newDefinition: String = ""
+
     @State var termToRemove: String = ""
     @State var definitionToRemove: String = ""
+
+    
     var body: some View {
         VStack {
             Section{
@@ -98,7 +100,11 @@ class TermOrDef: ObservableObject{
 
 #Preview {
     @StateObject var termOrDef = TermOrDef()
+  
     ContentView()
         .environmentObject(termOrDef)
 }
+
+
+
 //CShea16
