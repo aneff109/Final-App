@@ -17,6 +17,7 @@ struct ContentView: View {
     @State var termToRemove: String = ""
     @State var definitionToRemove: String = ""
     @State var testRemoveIt: Int = 0
+    @State var emptyArrayAlert = false
     
     var body: some View {
         VStack {
@@ -75,6 +76,17 @@ struct ContentView: View {
                     arrayTest.remove(at: removeCard)
                 }
             }
+            
+            
+            if arrayTest.isEmpty == true{
+                emptyArrayAlert.toggle()
+            }
+        }
+        .alert(isPresented: $emptyArrayAlert) {
+            Alert(
+                title: Text("Error: Action Unavailable"),
+                message: Text("No cards exist, so none can be deleted!")
+            )
         }
     }
 }
