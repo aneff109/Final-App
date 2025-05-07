@@ -68,7 +68,12 @@ struct ContentView: View {
         Button("Remove Term/Definition"){
             if arrayTest.isEmpty != true{
                 removeCard -= 1
-                arrayTest.remove(at: removeCard)
+                if removeCard >= 0 {
+                    arrayTest.remove(at: removeCard)
+                } else if removeCard < 0 {
+                    removeCard = 0
+                    arrayTest.remove(at: removeCard)
+                }
             }
         }
     }
