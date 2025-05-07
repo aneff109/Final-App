@@ -75,17 +75,15 @@ struct ContentView: View {
                     removeCard = 0
                     arrayTest.remove(at: removeCard)
                 }
-            }
-            
-            
-            if arrayTest.isEmpty == true{
-                emptyArrayAlert.toggle()
+            } else{
+                emptyArrayAlert = true
             }
         }
         .alert(isPresented: $emptyArrayAlert) {
             Alert(
                 title: Text("Error: Action Unavailable"),
                 message: Text("No cards exist, so none can be deleted!")
+                
             )
         }
     }
