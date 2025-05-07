@@ -16,7 +16,7 @@ struct ContentView: View {
     @State var removeCard:Int = 0
     @State var termToRemove: String = ""
     @State var definitionToRemove: String = ""
-
+    @State var testRemoveIt: Int = 0
     
     var body: some View {
         VStack {
@@ -67,6 +67,7 @@ struct ContentView: View {
         Stepper("Remove card: \(removeCard)", value: $removeCard, in: 0...arrayTest.count)
         Button("Remove Term/Definition"){
             if arrayTest.isEmpty != true{
+                removeCard -= 1
                 arrayTest.remove(at: removeCard)
             }
         }
@@ -102,10 +103,10 @@ class TermOrDef: ObservableObject{
 
 
 #Preview {
-    @StateObject var termOrDef = TermOrDef()
-  
-    ContentView()
-        .environmentObject(termOrDef)
+   @StateObject var termOrDef = TermOrDef()
+   
+   ContentView()
+       .environmentObject(termOrDef)
 }
 
 
